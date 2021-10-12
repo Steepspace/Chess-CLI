@@ -12,7 +12,7 @@ public abstract class Piece{
     }
     
     //contains logic to determine pieces move set
-    public abstract boolean checkMove();
+    public abstract boolean checkMove(int x, int y);
     
     public String toString(){
         if(this.white){
