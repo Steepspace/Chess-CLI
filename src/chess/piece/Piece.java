@@ -10,7 +10,10 @@ public abstract class Piece{
     public boolean isWhite(){
         return this.white;
     }
-
+    
+    //contains logic to determine pieces move set
+    public abstract boolean checkMove();
+    
     public String toString(){
         if(this.white){
             return "w";
