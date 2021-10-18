@@ -45,10 +45,37 @@ public class Board {
         for(int x = 0; x < 8; ++x){
             for(int y = 2; y < 6; ++y) this.board[x][y] = null;
         }
+        updateReach(this);
     }
 
     public Piece getPiece(int x, int y){
+        if(x < 0 || x > 7 || y < 0 || y > 7) return null;
         return this.board[x][y];
+    }
+
+    public boolean movePiece(int x0, int y0, int x, int y, Board board){
+        Piece piece = this.board[x0][y0];
+        if(piece == null) return false;
+
+        if(piece.canReach(x,y)){
+            this.board[x][y] = piece;
+            this.board[x0][y0] = null;
+            if(!piece.isMoved()) piece.setMoved();
+            updateReach(board);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void updateReach(Board board){
+        for(int i = 0; i < 8; ++i){
+            for(int j = 0; j < 8; ++j){
+                Piece piece = this.board[i][j];
+                if(piece != null) piece.updateReach(i, j, board);
+            }
+        }
+
     }
 
     public String toString(){
