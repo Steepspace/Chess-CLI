@@ -45,7 +45,7 @@ public class Board {
         for(int x = 0; x < 8; ++x){
             for(int y = 2; y < 6; ++y) this.board[x][y] = null;
         }
-        updateReach(this);
+        updateReach();
     }
 
     public Piece getPiece(int x, int y){
@@ -53,29 +53,43 @@ public class Board {
         return this.board[x][y];
     }
 
-    public boolean movePiece(int x0, int y0, int x, int y, Board board){
+    public boolean movePiece(int x0, int y0, int x, int y){
         Piece piece = this.board[x0][y0];
         if(piece == null) return false;
 
         if(piece.canReach(x,y)){
+            // check if enpassant capture is taking place
+            if(piece instanceof Pawn && y0 != y && this.board[x][y] == null){
+                if(piece.isWhite()) this.board[x][y-1] = null;
+                else this.board[x][y+1] = null;
+            }
             this.board[x][y] = piece;
             this.board[x0][y0] = null;
+            // to ensure that pawns cannot travel two squares forward multiple times
+            // to ensure that casteling cannot happen if either the king or rooks has moved
             if(!piece.isMoved()) piece.setMoved();
-            updateReach(board);
+            // if a pawn has moved 2 squares forward then put an enpassant flag on it
+            // checking if adjacent piece is also a pawn of opposite color
+            if(piece instanceof Pawn && Math.abs(y0-y) == 2 &&
+               ((this.getPiece(x-1, y) instanceof Pawn && (this.board[x-1][y].isWhite() ^ piece.isWhite())) ||
+                (this.getPiece(x+1, y) instanceof Pawn && (this.board[x+1][y].isWhite() ^ piece.isWhite()))))
+                ((Pawn)piece).setEnpassant(true);
+            updateReach();
+            // next time the same piece cannot be added for enpassant since the move is only avaliable for one turn
+            if(piece instanceof Pawn) ((Pawn)piece).setEnpassant(false);
             return true;
         }
 
         return false;
     }
 
-    private void updateReach(Board board){
+    private void updateReach(){
         for(int i = 0; i < 8; ++i){
             for(int j = 0; j < 8; ++j){
                 Piece piece = this.board[i][j];
-                if(piece != null) piece.updateReach(i, j, board);
+                if(piece != null) piece.updateReach(i, j, this);
             }
         }
-
     }
 
     public String toString(){

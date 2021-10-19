@@ -26,7 +26,7 @@ public class Chess {
             int x = input[1].charAt(0)-'a';
             int y = Character.digit(input[1].charAt(1), 10)-1;
 
-            if(board.getPiece(x0,y0) == null || ((i%2 == 0) ^ board.getPiece(x0,y0).isWhite()) || !board.movePiece(x0, y0, x, y, board)){
+            if(board.getPiece(x0,y0) == null || ((i%2 == 0) ^ board.getPiece(x0,y0).isWhite()) || !board.movePiece(x0, y0, x, y)){
                 System.out.println("Illegal move, try again");
                 continue;
             }

@@ -3,10 +3,10 @@ package chess.piece;
 import chess.board.Board;
 
 public class Pawn extends Piece{
-    // private boolean enpassant;
+    private boolean enpassant;
     public Pawn(boolean white){
         super(white);
-        // this.enpassant = false;
+        this.enpassant = false;
     }
 
     public void updateReach(int x, int y, Board board){
@@ -23,6 +23,11 @@ public class Pawn extends Piece{
                 if(board.getPiece(x-1, y+1) != null && !board.getPiece(x-1, y+1).isWhite()) reach.add((x-1)+(y+1)*8);
                 // can capture right
                 if(board.getPiece(x+1, y+1) != null && !board.getPiece(x+1, y+1).isWhite()) reach.add((x+1)+(y+1)*8);
+
+                //can capture with enpassant left
+                if((board.getPiece(x-1, y) instanceof Pawn) && !board.getPiece(x-1, y).isWhite() && ((Pawn)board.getPiece(x-1, y)).isEnpassant()) reach.add((x-1)+(y+1)*8);
+                //can capture with enpassant right
+                if((board.getPiece(x+1, y) instanceof Pawn) && !board.getPiece(x+1, y).isWhite() && ((Pawn)board.getPiece(x+1, y)).isEnpassant()) reach.add((x+1)+(y+1)*8);
             }
         }
 
@@ -37,8 +42,21 @@ public class Pawn extends Piece{
                 if(board.getPiece(x-1, y-1) != null && board.getPiece(x-1, y-1).isWhite()) reach.add((x-1)+(y-1)*8);
                 // can capture right
                 if(board.getPiece(x+1, y-1) != null && board.getPiece(x+1, y-1).isWhite()) reach.add((x+1)+(y-1)*8);
+
+                //can capture with enpassant left
+                if((board.getPiece(x-1, y) instanceof Pawn) && board.getPiece(x-1, y).isWhite() && ((Pawn)board.getPiece(x-1, y)).isEnpassant()) reach.add((x-1)+(y-1)*8);
+                //can capture with enpassant right
+                if((board.getPiece(x+1, y) instanceof Pawn) && board.getPiece(x+1, y).isWhite() && ((Pawn)board.getPiece(x+1, y)).isEnpassant()) reach.add((x+1)+(y-1)*8);
             }
         }
+    }
+
+    public boolean isEnpassant(){
+        return this.enpassant;
+    }
+
+    public void setEnpassant(boolean enpassant){
+       this.enpassant = enpassant;
     }
 
     public String toString(){
