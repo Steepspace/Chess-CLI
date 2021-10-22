@@ -9,12 +9,12 @@ public abstract class Piece{
     // x = n % 8
     // y = n / 8
     protected ArrayList<Integer> reach;
-    private boolean Moved;
+    private boolean moved;
 
     public Piece(boolean white){
         this.white = white;
         this.reach = new ArrayList<>();
-        this.Moved = false;
+        this.moved = false;
     }
 
     public boolean isWhite(){
@@ -22,11 +22,11 @@ public abstract class Piece{
     }
 
     public boolean isMoved(){
-        return this.Moved;
+        return this.moved;
     }
 
     public void setMoved(){
-        this.Moved = true;
+        this.moved = true;
     }
     
     //contains logic to determine pieces move set

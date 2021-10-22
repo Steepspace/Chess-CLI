@@ -59,7 +59,7 @@ public class Board {
 
         if(piece.canReach(x,y)){
             // check if enpassant capture is taking place
-            if(piece instanceof Pawn && y0 != y && this.board[x][y] == null){
+            if(piece instanceof Pawn && this.board[x][y] == null){
                 if(piece.isWhite()) this.board[x][y-1] = null;
                 else this.board[x][y+1] = null;
             }
