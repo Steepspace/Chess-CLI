@@ -80,6 +80,21 @@ public class Board {
                 if(piece.isWhite()) this.board[x][y-1] = null;
                 else this.board[x][y+1] = null;
             }
+            // check if casteling is taking place
+            if(piece instanceof King && Math.abs(x-x0) == 2){
+                // right
+                // move rook into place
+                if(x > x0){
+                    this.board[5][y] = this.board[7][y];
+                    this.board[7][y] = null;
+                }
+                // left
+                // move rook into place
+                else{
+                    this.board[3][y] = this.board[0][y];
+                    this.board[0][y] = null;
+                }
+            }
             //move the piece to the new square
             this.board[x][y] = piece;
             this.board[x0][y0] = null;
@@ -139,7 +154,6 @@ public class Board {
         }
         return true;
     }
-
 
     public String toString(){
         String board_s = "";
