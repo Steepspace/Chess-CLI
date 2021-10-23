@@ -10,6 +10,23 @@ public class Board {
         reset();
     }
 
+    // copy constructor
+    public Board(Board board){
+        this.board = new Piece[8][8];
+
+        for(int i = 0; i < 8; ++i){
+            for(int j = 0; j < 8; ++j){
+                Piece piece = board.getPiece(i,j);
+                if(piece instanceof Pawn) this.board[i][j] = new Pawn((Pawn)piece);
+                if(piece instanceof Knight) this.board[i][j] = new Knight((Knight)piece);
+                if(piece instanceof Bishop) this.board[i][j] = new Bishop((Bishop)piece);
+                if(piece instanceof Rook) this.board[i][j] = new Rook((Rook)piece);
+                if(piece instanceof Queen) this.board[i][j] = new Queen((Queen)piece);
+                if(piece instanceof King) this.board[i][j] = new King((King)piece);
+            }
+        }
+    }
+
     public void reset(){
         // White
         for(int i = 0; i < 8; ++i) this.board[i][1] = new Pawn(true);
@@ -63,6 +80,7 @@ public class Board {
                 if(piece.isWhite()) this.board[x][y-1] = null;
                 else this.board[x][y+1] = null;
             }
+            //move the piece to the new square
             this.board[x][y] = piece;
             this.board[x0][y0] = null;
             // to ensure that pawns cannot travel two squares forward multiple times
@@ -90,6 +108,20 @@ public class Board {
                 if(piece != null) piece.updateReach(i, j, this);
             }
         }
+    }
+
+    public boolean isCheck(boolean white){
+        for(int i = 0; i < 8; ++i){
+            for(int j = 0; j < 8; ++j){
+                Piece piece = this.board[i][j];
+                if(piece != null && piece.isWhite() != white){
+                    for(int n : piece.getReach()){
+                        if(this.board[n%8][n/8] instanceof King) return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public String toString(){
