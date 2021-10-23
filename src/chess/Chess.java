@@ -3,6 +3,7 @@ package chess;
 import chess.board.Board;
 
 import java.util.Scanner;
+import java.io.File;
 
 public class Chess {
     public static void main(String[] args) {
@@ -11,7 +12,7 @@ public class Chess {
         System.out.println(board);
         System.out.println();
 
-        // Using Scanner for Getting Input from User
+        // Using Scanner to get user input
         Scanner in = new Scanner(System.in);
 
         // Testing Basic Movement of Pieces
@@ -26,14 +27,55 @@ public class Chess {
             int x = input[1].charAt(0)-'a';
             int y = Character.digit(input[1].charAt(1), 10)-1;
 
-            if(board.getPiece(x0,y0) == null || ((i%2 == 0) ^ board.getPiece(x0,y0).isWhite()) || !board.movePiece(x0, y0, x, y)){
+            Board virtual = new Board(board);
+
+            if(virtual.getPiece(x0,y0) == null || ((i%2 == 0) ^ virtual.getPiece(x0,y0).isWhite()) || !virtual.movePiece(x0, y0, x, y) || virtual.isCheck(virtual.getPiece(x,y).isWhite())){
                 System.out.println("Illegal move, try again");
                 continue;
             }
+
+            board = virtual;
+
             System.out.println();
             System.out.println(board);
             System.out.println();
             ++i;
         }
+
+        // Using Scanner for reading from file
+        // Scanner in = null;
+
+        // try {
+        //     in = new Scanner(new File("moves.txt"));
+        // } catch (Exception e) {}
+
+        // // Testing Basic Movement of Pieces
+        // int i = 0;
+        // while (in.hasNextLine()) {
+        //     if(i%2 == 0) System.out.print("White's move: ");
+        //     else System.out.print("Black's move: ");
+
+        //     String[] input = in.nextLine().split(" ");
+        //     int x0 = input[0].charAt(0)-'a';
+        //     int y0 = Character.digit(input[0].charAt(1), 10)-1;
+        //     int x = input[1].charAt(0)-'a';
+        //     int y = Character.digit(input[1].charAt(1), 10)-1;
+
+        //     Board virtual = new Board(board);
+
+        //     if(virtual.getPiece(x0,y0) == null || ((i%2 == 0) ^ virtual.getPiece(x0,y0).isWhite()) || !virtual.movePiece(x0, y0, x, y) || virtual.isCheck(virtual.getPiece(x,y).isWhite())){
+        //         System.out.println("Illegal move, try again");
+        //         continue;
+        //     }
+
+        //     board = virtual;
+
+        //     System.out.println();
+        //     System.out.println(board);
+        //     System.out.println();
+        //     ++i;
+        // }
+
     }
+
 }
