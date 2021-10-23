@@ -124,6 +124,23 @@ public class Board {
         return false;
     }
 
+    public boolean isCheckMate(boolean white){
+        for(int i = 0; i < 8; ++i){
+            for(int j = 0; j < 8; ++j){
+                Piece piece = this.board[i][j];
+                if(piece != null && piece.isWhite() == white){
+                    for(int n : piece.getReach()){
+                        Board virtual = new Board(this);
+                        virtual.movePiece(i, j, n%8, n/8);
+                        if(!virtual.isCheck(white)) return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
     public String toString(){
         String board_s = "";
         for (int i = 7; i >= 0; --i) {
