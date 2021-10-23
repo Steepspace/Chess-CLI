@@ -7,6 +7,10 @@ public class King extends Piece{
         super(white);
     }
 
+    public King(King king){
+        super(king);
+    }
+
     // ADD MORE LOGIC
     public boolean canCastle(){
         if(!isMoved()) return false;

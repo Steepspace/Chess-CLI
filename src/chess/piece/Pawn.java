@@ -9,6 +9,11 @@ public class Pawn extends Piece{
         this.enpassant = false;
     }
 
+    public Pawn(Pawn pawn){
+        super(pawn);
+        this.enpassant = pawn.isEnpassant();
+    }
+
     public void updateReach(int x, int y, Board board){
         reach.clear();
 

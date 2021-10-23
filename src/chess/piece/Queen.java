@@ -7,6 +7,10 @@ public class Queen extends Piece{
         super(white);
     }
 
+    public Queen(Queen queen){
+        super(queen);
+    }
+
     public void updateReach(int x, int y, Board board){
         reach.clear();
         // update top

@@ -7,6 +7,10 @@ public class Rook extends Piece{
         super(white);
     }
 
+    public Rook(Rook rook){
+        super(rook);
+    }
+
     public void updateReach(int x, int y, Board board){
         reach.clear();
         // update top

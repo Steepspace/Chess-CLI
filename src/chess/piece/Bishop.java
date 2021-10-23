@@ -7,6 +7,10 @@ public class Bishop extends Piece{
         super(white);
     }
 
+    public Bishop(Bishop bishop){
+        super(bishop);
+    }
+
     public void updateReach(int x, int y, Board board){
         reach.clear();
         // update topright

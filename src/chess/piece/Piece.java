@@ -17,6 +17,12 @@ public abstract class Piece{
         this.moved = false;
     }
 
+    public Piece(Piece piece){
+        this.white = piece.isWhite();
+        this.reach = new ArrayList<Integer>(piece.getReach());
+        this.moved = piece.isMoved();
+    }
+
     public boolean isWhite(){
         return this.white;
     }
@@ -68,6 +74,10 @@ public abstract class Piece{
             if(piece == null || (piece.isWhite() ^ this.white)) reach.add(i+j*8);
             if(piece != null) break;
         }
+    }
+
+    public ArrayList<Integer> getReach(){
+        return this.reach;
     }
 
     public String toString(){

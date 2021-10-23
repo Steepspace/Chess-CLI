@@ -7,6 +7,10 @@ public class Knight extends Piece{
         super(white);
     }
 
+    public Knight(Knight knight){
+        super(knight);
+    }
+
     public void updateReach(int x, int y, Board board){
        reach.clear();
        // right
