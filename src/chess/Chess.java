@@ -25,18 +25,33 @@ public class Chess {
             else System.out.print("Black's move: ");
 
             String[] input = in.nextLine().split(" ");
+
+            // check for resignation
+            if(input[0].equals("resign")){
+                if(white) System.out.println("Black wins");
+                else System.out.println("White wins");
+                break;
+            }
+
             int x0 = input[0].charAt(0)-'a';
             int y0 = Character.digit(input[0].charAt(1), 10)-1;
             int x = input[1].charAt(0)-'a';
             int y = Character.digit(input[1].charAt(1), 10)-1;
-
-            // System.out.println(input[0] + " " + input[1]);
 
             Board virtual = new Board(board);
 
             if(virtual.getPiece(x0,y0) == null || white != virtual.getPiece(x0,y0).isWhite() || !virtual.movePiece(x0, y0, x, y) || virtual.isCheck(virtual.getPiece(x,y).isWhite())){
                 System.out.println("Illegal move, try again");
                 continue;
+            }
+
+            // Check for draw
+            if(input.length == 3 && input[2].equals("draw?")){
+                if(white) System.out.print("Black's move: ");
+                else System.out.print("White's move: ");
+                in.nextLine();
+                System.out.println("draw");
+                break;
             }
 
             // Check for promotion
