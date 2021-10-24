@@ -70,6 +70,19 @@ public class Board {
         return this.board[x][y];
     }
 
+    public void promote(int x, int y, boolean white, char type){
+        switch(type){
+        case 'R': this.board[x][y] = new Rook(white);
+            break;
+        case 'N': this.board[x][y] = new Knight(white);
+            break;
+        case 'B': this.board[x][y] = new Bishop(white);
+            break;
+            default: this.board[x][y] = new Queen(white);
+        }
+        updateReach();
+    }
+
     public boolean movePiece(int x0, int y0, int x, int y){
         Piece piece = this.board[x0][y0];
         if(piece == null) return false;
