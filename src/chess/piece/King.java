@@ -1,19 +1,38 @@
+/**
+ * @author Apurva Narde
+ * @author Max Geiger
+ */
 package chess.piece;
 
 import chess.board.Board;
 
 public class King extends Piece{
+    /*
+     * Constructor
+     * @param white the color of the piece
+     */
     public King(boolean white){
         super(white);
     }
 
+    /*
+     * Copy Constructor
+     * @param king the king object to be copied
+     */
     public King(King king){
         super(king);
     }
 
-    // ADD MORE LOGIC
+    /*
+     * Check whether the king can castle from the given location in the specified direction.
+     * @param x x-coordinate on the board
+     * @param y y-coordinate on the board
+     * @param board Board object which contains all the pieces and their locations
+     * @param right the direction in which to castle
+     * @return true if castle is allowed or false otherwise
+     */
     public boolean canCastle(int x, int y, Board board, boolean right){
-        if (isMoved())
+        if (isMoved() || board.isCheck(isWhite()))
             return false;
 
         if (right) {
@@ -26,6 +45,7 @@ public class King extends Piece{
                             return false;
                     }
                 }
+                return true;
             }
         }
         else{
@@ -38,11 +58,18 @@ public class King extends Piece{
                             return false;
                     }
                 }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
+    /*
+     * Update the reach of the piece given the location of the piece and the Board state.
+     * @param x x-coordinate on the board
+     * @param y y-coordinate on the board
+     * @param board Board object which contains all the pieces and their locations
+     */
     public void updateReach(int x, int y, Board board){
         reach.clear();
        // right
@@ -63,6 +90,9 @@ public class King extends Piece{
        if(canCastle(x, y, board, false)) reach.add((x-2)+y*8);
     }
 
+    /*
+     * @return the pieces id
+     */
     public String toString(){
         return super.toString() + "K";
     }
