@@ -2,18 +2,40 @@ package chess.piece;
 
 import chess.board.Board;
 
+/**
+ * Governs the state of the pawn.
+ * @author Apurva Narde
+ * @author Max Geiger
+ */
 public class Pawn extends Piece{
+    /**
+     * true if the pawn can be captured through enpassant, false otherwise.
+     */
     private boolean enpassant;
+    /**
+     * Constructor
+     * @param white the color of the piece
+     */
     public Pawn(boolean white){
         super(white);
         this.enpassant = false;
     }
 
+    /**
+     * Copy Constructor
+     * @param pawn the pawn object to be copied
+     */
     public Pawn(Pawn pawn){
         super(pawn);
         this.enpassant = pawn.isEnpassant();
     }
 
+    /**
+     * Update the reach of the piece given the location of the piece and the Board state.
+     * @param x x-coordinate on the board
+     * @param y y-coordinate on the board
+     * @param board Board object which contains all the pieces and their locations
+     */
     public void updateReach(int x, int y, Board board){
         reach.clear();
 
@@ -56,14 +78,25 @@ public class Pawn extends Piece{
         }
     }
 
+    /**
+     * Get enpassant
+     * @return true if the pawn can be captured using enpassant and false otherwise.
+     */
     public boolean isEnpassant(){
         return this.enpassant;
     }
 
+    /**
+     * Set the pawn's enpassant status.
+     * @param enpassant, true if the pawn can be captured using enpassant and false otherwise.
+     */
     public void setEnpassant(boolean enpassant){
        this.enpassant = enpassant;
     }
 
+    /**
+     * @return the pieces id
+     */
     public String toString(){
         return super.toString() + "p";
     }

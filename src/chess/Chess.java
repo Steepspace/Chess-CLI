@@ -6,8 +6,17 @@ import chess.piece.Pawn;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * Application class which takes in user input for moves and processes them.
+ * @author Apurva Narde
+ * @author Max Geiger
+ */
 public class Chess {
 
+    /**
+     * main method of the driver class which runs the application.
+     * @param args command line arguments provided (expected none)
+     */
     public static void main(String[] args) {
         // Testing toString in board
         Board board = new Board();

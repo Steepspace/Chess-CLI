@@ -1,13 +1,14 @@
-/**
- * @author Apurva Narde
- * @author Max Geiger
- */
 package chess.piece;
 
 import chess.board.Board;
 
+/**
+ * Governs the state of the king.
+ * @author Apurva Narde
+ * @author Max Geiger
+ */
 public class King extends Piece{
-    /*
+    /**
      * Constructor
      * @param white the color of the piece
      */
@@ -15,7 +16,7 @@ public class King extends Piece{
         super(white);
     }
 
-    /*
+    /**
      * Copy Constructor
      * @param king the king object to be copied
      */
@@ -23,7 +24,7 @@ public class King extends Piece{
         super(king);
     }
 
-    /*
+    /**
      * Check whether the king can castle from the given location in the specified direction.
      * @param x x-coordinate on the board
      * @param y y-coordinate on the board
@@ -64,7 +65,7 @@ public class King extends Piece{
         return false;
     }
 
-    /*
+    /**
      * Update the reach of the piece given the location of the piece and the Board state.
      * @param x x-coordinate on the board
      * @param y y-coordinate on the board
@@ -90,7 +91,7 @@ public class King extends Piece{
        if(canCastle(x, y, board, false)) reach.add((x-2)+y*8);
     }
 
-    /*
+    /**
      * @return the pieces id
      */
     public String toString(){
