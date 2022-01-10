@@ -1,0 +1,48 @@
+#+TITLE: Chess CLI
+
+* Description
+Here is an implementation of the game of Chess for two players. The program, when launched, should draw the board in text, on the terminal and prompt whomever's turn it is (white or black) for a move. Once the move is executed, the move should be played and the new board drawn, and the other player queried.
+
+The board should be drawn on the screen with ascii art is EXACTLY as shown in this example.
+
+[[file:images/example.png]]
+
+Note there is a blank line above and below any prompt/message the program will print, and the board itself.
+
+** Key Features:
+*** Every piece must know what moves are allowed on it. If a player attempts an illegal move on a piece, the program should not execute the move. Instead, it should print "Illegal move, try again", followed by the usual prompt (for white's move or black's move).
+*** When a move is made, and it puts the opponent's King under check, the program should print "Check" before prompting for the opponent's move.
+*** If a checkmate is detected, the program should print "Checkmate".
+*** The last thing before termination should be a display of "Black wins", "White wins" or "draw".
+
+** Input
+The program accepts input of the form "FileRank FileRank", where the ﬁrst ﬁle (column) and rank (row) are the coordinates of the piece to be moved, and the second ﬁle and rank are the coordinates of where it should end up (see the board example shown below). All inputs will be on the command line, one move at a time, not through a ﬁle.
+
+The ﬁgure immediately below should make it clear which rank and ﬁle combinations belong to which squares. The white pieces always intially occupy ranks 1 and 2. The black pieces always initially occupy ranks 7 and 8. The queen always starts on the d ﬁle.
+
+[[file:images/input.png]]
+
+As an example, advancing the white king's pawn two spaces would be input as "e2 e4". A castling move is indicated by specifying where the king begins and ends. So, white castling king's side would be "e1 g1". A pawn promotion is indicated by putting the piece to be promoted to after the move. So, promoting a pawn to a knight might be "g7 g8 N". If no promotion piece is indicated, it is assumed to be a queen.
+
+** Ending the Game
+A player may offer a draw by appending "draw?" to the end of an otherwise regular move. When a draw is offered, the other player is obligated to accept, and the game ends, whatever the actual situation may be. (No justiﬁcation is needed.) So the other player will simply submit "draw" as the entirety of their next move. There will be no automatic draws (due to unchangeing positions over long periods of time, etc).
+
+If checkmate occurs, the game shall end immediately with the result reported.
+
+A player may resign by entering "resign".
+
+Note: *The program does NOT implement termination by threefold repetition, or the ﬁfty-move rule*.
+
+* Compilation
+#+begin_src sh
+cd src
+make
+#+end_src
+
+* Starting Application
+#+begin_src sh
+cd ../bin
+java chess.Chess
+#+end_src
+
+Please follow both [[http://academicintegrity.rutgers.edu/][Rutgers University's Principles of Academic Integrity]] and the [[https://www.cs.rutgers.edu/academics/undergraduate/academic-integrity-policy][Rutgers Department of Computer Science's Academic Integrity Policy]].
